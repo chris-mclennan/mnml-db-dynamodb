@@ -119,11 +119,11 @@ fn draw_body(f: &mut Frame, area: Rect, tab: &TabState) {
         .direction(Direction::Horizontal)
         .constraints([Constraint::Percentage(45), Constraint::Percentage(55)])
         .split(area);
-    let header = Row::new(vec![
-        Cell::from("PRIMARY"),
-        Cell::from("FIELDS"),
-    ])
-    .style(Style::default().fg(Color::DarkGray).add_modifier(Modifier::BOLD));
+    let header = Row::new(vec![Cell::from("PRIMARY"), Cell::from("FIELDS")]).style(
+        Style::default()
+            .fg(Color::DarkGray)
+            .add_modifier(Modifier::BOLD),
+    );
     let rows: Vec<Row> = tab
         .items
         .iter()
@@ -168,7 +168,12 @@ fn draw_body(f: &mut Frame, area: Rect, tab: &TabState) {
     let lines: Vec<Line> = json
         .lines()
         .take((area.height as usize).saturating_sub(2))
-        .map(|l| Line::from(Span::styled(l.to_string(), Style::default().fg(Color::Cyan))))
+        .map(|l| {
+            Line::from(Span::styled(
+                l.to_string(),
+                Style::default().fg(Color::Cyan),
+            ))
+        })
         .collect();
     let detail = Paragraph::new(lines).block(
         Block::default()
@@ -179,7 +184,7 @@ fn draw_body(f: &mut Frame, area: Rect, tab: &TabState) {
 }
 
 fn draw_status(f: &mut Frame, area: Rect, app: &App) {
-    let hint = " 1-9 tab · ↑↓/jk move · o console · y yank JSON · r refresh · q quit ";
+    let hint = " 1-9 tab · ↑↓/jk move · o console · y JSON · r refresh · q quit ";
     let line = Line::from(vec![
         Span::styled(
             format!(" {} ", app.status),

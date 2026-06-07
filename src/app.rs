@@ -118,7 +118,9 @@ impl App {
     pub fn drain(&mut self) -> bool {
         let mut any = false;
         for tab in self.tabs.iter_mut() {
-            let Some(rx) = tab.pending.take() else { continue };
+            let Some(rx) = tab.pending.take() else {
+                continue;
+            };
             let mut done = false;
             loop {
                 match rx.try_recv() {

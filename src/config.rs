@@ -70,10 +70,7 @@ table = "domain-events"
         }
         for (i, t) in self.tabs.iter().enumerate() {
             if t.table.trim().is_empty() {
-                return Err(anyhow!(
-                    "tab #{i} ({}): `table` is required",
-                    t.name
-                ));
+                return Err(anyhow!("tab #{i} ({}): `table` is required", t.name));
             }
             if t.scan_limit == 0 || t.scan_limit > 1000 {
                 return Err(anyhow!(

@@ -45,7 +45,14 @@ pub fn spawn_scan(table: String, limit: u32, region: Option<String>) -> Receiver
 fn scan(table: &str, limit: u32, region: Option<&str>) -> Result<(Vec<Item>, TableMeta)> {
     let limit_s = limit.to_string();
     let scan_json = run_aws(
-        &["dynamodb", "scan", "--table-name", table, "--limit", &limit_s],
+        &[
+            "dynamodb",
+            "scan",
+            "--table-name",
+            table,
+            "--limit",
+            &limit_s,
+        ],
         region,
     )?;
     let desc_json = run_aws(
@@ -55,8 +62,8 @@ fn scan(table: &str, limit: u32, region: Option<&str>) -> Result<(Vec<Item>, Tab
     .ok()
     .unwrap_or(Value::Null);
 
-    let raw_items: ScanResponse = serde_json::from_value(scan_json)
-        .context("parse dynamodb scan response")?;
+    let raw_items: ScanResponse =
+        serde_json::from_value(scan_json).context("parse dynamodb scan response")?;
     let meta = parse_meta(table, &desc_json);
 
     let items = raw_items
