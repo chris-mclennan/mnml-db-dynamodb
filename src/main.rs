@@ -4,6 +4,7 @@ mod clipboard;
 mod config;
 mod dynamodb;
 mod keys;
+mod theme;
 mod ui;
 
 pub(crate) fn clipboard_copy(text: &str) -> Result<(), String> {
