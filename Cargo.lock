@@ -776,6 +776,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "mnml-bridge"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "mnml-db-dynamodb"
 version = "0.1.0"
 dependencies = [
@@ -784,6 +792,7 @@ dependencies = [
  "clap",
  "crossterm",
  "dirs",
+ "mnml-bridge",
  "ratatui",
  "serde",
  "serde_json",
